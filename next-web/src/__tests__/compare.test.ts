@@ -1,4 +1,4 @@
-import { sharpeRatio } from "@/lib/compare";
+import { sharpeRatio } from "../lib/compare";
 
 describe("sharpeRatio", () => {
   test("calculates Sharpe ratio correctly for positive returns", () => {

@@ -1,4 +1,4 @@
-import { shouldAlert } from "@/lib/alert";
+import { shouldAlert } from "../lib/alert";
 
 describe("shouldAlert", () => {
   test("triggers when move exceeds threshold", () => {
