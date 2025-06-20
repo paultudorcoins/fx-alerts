@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <main className="max-w-2xl mx-auto p-4">
       <h1 className="text-xl font-bold mb-4">Live EUR/USD</h1>
-      <Line data={data} />
+      <Line data={data} options={options as any} />
     </main>
   );
 }
