@@ -1,27 +1,41 @@
-name: Node.js CI
+name: Node.js CI          # ← workflow name shown in GitHub
 
+# ---- When to run ----------------------------------------------------------------
 on:
-  push:
-    branches: [ main ]
-  pull_request:
+  push:                    # every direct push to your default branch
+    branches: [ main ]     # change to [ master ] if your repo uses master
+  pull_request:            # and every PR that targets that branch
     branches: [ main ]
 
+# ---- Jobs -----------------------------------------------------------------------
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    # All commands below will be executed with CWD = <repo>/next-web
+    defaults:
+      run:
+        working-directory: next-web
+
     steps:
+      # 1 Check out the code
       - uses: actions/checkout@v4
 
+      # 2 Install Node + set up an npm cache keyed to the lock-file
       - uses: actions/setup-node@v4
         with:
-          node-version: 20           # use whatever you run locally
+          node-version: 20
           cache: npm
+          cache-dependency-path: next-web/package-lock.json
 
-      - name: Install dependencies
+      # 3 Install dependencies **inside next-web/**
+      - name: Install deps
         run: npm ci
 
+      # 4 Run the Jest suite (2 suites, 4 tests)
       - name: Run unit tests
         run: npm test
 
+      # 5 Run ESLint / Next.js lint
       - name: Lint code
         run: npm run lint
